@@ -1,45 +1,74 @@
 ﻿using System.Text;
-
+using System.Collections.Generic;
 class Program
 {
     static void Main()
     {
         Console.OutputEncoding = Encoding.UTF8;
         Console.InputEncoding = Encoding.Unicode;
-        // В этом задании вам нужно создать список дел.
-        // Исплоьзуйте массив или лист для хранения списка дел.
-        // При запуске программа должна выводить меню на экран и ждать дальнейших действий пользователя.
-        // После выполнения действия программа должна снова выводить меню и ждать дальнейших действий пользователя.
-        // Все действия должны выполняться до тех пор, пока пользователь не выберет пункт "Выход".
         
+
+    
         
+       
+        List<string> todoList = new List<string>(); // Создаем список для хранения дел
+
         while (true)
         {
             Console.WriteLine("Список дел:");
-            // Выводим список задач
-            
-            // Выводим меню
-            
-            // Считываем выбор пользователя
-            
-            // Обрабатываем выбор пользователя
-            
-            
-            // 1. Добавить задачу
-                // Считываем задачу
-                // Добавляем задачу
-            
-            
-            // 2. Удалить задачу
-                // Считываем номер задачи
-                // Удаляем задачу
-                // Если ввод некорректный, выводим сообщение об ошибке
-                
-            // 3. Выход
-                // Выходим из программы
-                
-            // Ввод за пределами меню
-                // Выводим сообщение об ошибке
+            foreach (string task in todoList)
+            {
+                 Console.WriteLine("- " + task); // Выводим список задач
+            }
+
+                 Console.WriteLine("\nМеню:");
+                 Console.WriteLine("1. Добавить задачу");
+                 Console.WriteLine("2. Удалить задачу");
+                 Console.WriteLine("3. Выход");
+
+                 Console.Write("Выберите действие: ");
+
+            string choice = Console.ReadLine(); // Считываем выбор пользователя
+
+            switch (choice)
+            {
+            case "1":
+                 Console.Write("Введите новую задачу: ");
+                        string newTask = Console.ReadLine(); // Считываем новую задачу
+                        todoList.Add(newTask); // Добавляем задачу в список
+                        break;
+            case "2":
+            if (todoList.Count == 0)
+               {
+                 Console.WriteLine("Список дел пуст.");
+                        break;
+               }
+                 Console.Write("Введите номер задачи для удаления: ");
+            if (int.TryParse(Console.ReadLine(), out int taskIndex)) // Считываем номер задачи
+               {
+                 if (taskIndex >= 1 && taskIndex <= todoList.Count) // Проверяем, что номер в пределах списка
+                 {
+                      todoList.RemoveAt(taskIndex - 1); // Удаляем задачу по индексу
+                 }
+                 else
+                 {
+                  Console.WriteLine("Ошибка: введите корректный номер задачи.");
+                 }
+               }
+            else
+               {
+                  Console.WriteLine("Ошибка: введите корректный номер задачи.");
+               }
+                        break;
+            case "3":
+                  Console.WriteLine("Выход из программы.");
+                       return;
+            default:
+                  Console.WriteLine("Ошибка: введите число от 1 до 3.");
+                        break;
+            }
         }
+        
     }
+
 }
